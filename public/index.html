@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>🔗 URL Shortener</h1>
+        <p class="subtitle">Shorten your long URLs in seconds!</p>
+
+        <div class="input-section">
+          <input
+            type="url"
+            id="urlInput"
+            placeholder="Enter your long URL here..."
+            required
+          />
+          <button id="shortenBtn" onclick="shortenURL()">Shorten URL</button>
+        </div>
+
+        <div id="result" class="result hidden">
+          <div class="success-message">
+            <span class="checkmark">✓</span>
+            <h3>Your short URL is ready!</h3>
+          </div>
+          <div class="short-url-container">
+            <input type="text" id="shortURL" readonly />
+            <button onclick="copyURL()" class="copy-btn">📋 Copy</button>
+          </div>
+          <a id="visitLink" href="#" target="_blank" class="visit-link">
+            Visit Short URL →
+          </a>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+        <div id="loading" class="loading hidden">
+          <div class="spinner"></div>
+          <p>Creating your short URL...</p>
+        </div>
+      </div>
+
+      <!-- NEW: Analytics Section -->
+      <div class="card analytics-card">
+        <div class="analytics-header">
+          <h2>📊 URL Analytics</h2>
+          <button onclick="loadAllURLs()" class="refresh-btn">
+            🔄 Refresh
+          </button>
+        </div>
+
+        <div id="analyticsLoading" class="loading hidden">
+          <div class="spinner"></div>
+          <p>Loading analytics...</p>
+        </div>
+
+        <div id="noData" class="no-data">
+          <span class="icon">📭</span>
+          <p>No URLs created yet. Create your first short URL above!</p>
+        </div>
+
+        <div id="analyticsContainer" class="analytics-container hidden"></div>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <span class="icon">⚡</span>
+          <h3>Fast</h3>
+          <p>Generate short URLs instantly</p>
+        </div>
+        <div class="feature">
+          <span class="icon">🔒</span>
+          <h3>Secure</h3>
+          <p>Your URLs are safely stored</p>
+        </div>
+        <div class="feature">
+          <span class="icon">📊</span>
+          <h3>Track</h3>
+          <p>Monitor visit history</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
