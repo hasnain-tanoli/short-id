@@ -44,183 +44,122 @@ Bash
 npm install
 Set up environment variables
 
-Create a .env file in the root directory:
+## short-id — URL Shortener
 
-env
+![status-active](https://img.shields.io/badge/status-active-success.svg) ![license-MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
-MONGODB_URI=your_mongodb_connection_string
-PORT=3000
-Start the server
+A small URL shortening service built with Node.js, Express and MongoDB. Shorten long links, get basic visit analytics, and redirect via compact IDs.
 
-Bash
+---
 
-npm start
-Or for development with nodemon:
+## Features
 
-Bash
+- Shorten long URLs to compact IDs
+- Redirect from short ID to original URL
+- Basic visit tracking / analytics
+- Simple frontend to create and copy short links
 
-npm run dev
-Open your browser
+## Tech stack
+## short-id — URL Shortener
 
-Navigate to http://localhost:3000
+![status-active](https://img.shields.io/badge/status-active-success.svg) ![license-MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
-📁 Project Structure
-text
+A small URL shortening service built with Node.js, Express and MongoDB. Shorten long links, get basic visit analytics, and redirect via compact IDs.
 
+---
+
+## Features
+
+- Shorten long URLs to compact IDs
+- Redirect from short ID to original URL
+- Basic visit tracking / analytics
+- Simple frontend to create and copy short links
+
+## Tech stack
+
+- Node.js + Express
+- MongoDB + Mongoose
+- nanoid for ID generation
+- Plain HTML/CSS/Vanilla JS frontend (served from /public)
+
+## Quick start
+
+1. Clone the repository
+
+  git clone https://github.com/hasnain-tanoli/short-id.git
+  cd short-id
+
+2. Install dependencies
+
+  npm install
+
+3. Create a .env file in the project root (see `.env.example` if present) and set:
+
+  MONGODB_URI=your_mongodb_connection_string
+  PORT=3000
+
+4. Start the app
+
+  npm start
+
+  # for development with nodemon (if available)
+  npm run dev
+
+5. Open http://localhost:3000 in your browser
+
+## Project structure
+
+```
 short-id/
-├── controllers/
-│   └── url.js              # URL controller logic
-├── models/
-│   └── url.js              # MongoDB URL schema
-├── routes/
-│   └── url.js              # API routes
-├── config/
-│   └── db.js               # Database connection
-├── public/
-│   ├── index.html          # Frontend HTML
-│   ├── style.css           # Styling
-│   └── script.js           # Client-side JavaScript
-├── .env                    # Environment variables (not tracked)
-├── .env.example            # Environment template
-├── .gitignore              # Git ignore file
-├── index.js                # Server entry point
-├── package.json            # Dependencies
-└── README.md               # Documentation
-🔌 API Endpoints
-Method	Endpoint	Description
-POST	/api/shorten	Create a new short URL
-GET	/api/urls	Get all URLs with analytics
-GET	/api/analytics/:shortId	Get analytics for specific URL
-GET	/:shortId	Redirect to original URL
-API Examples
-Create Short URL:
+├── controllers/    # request handlers (url controller)
+├── models/         # Mongoose schemas (url model)
+├── routes/         # Express route definitions
+├── public/         # static frontend (index.html, script.js, style.css)
+├── connection.js   # database connection (or config)
+├── server.js       # app entry point
+├── package.json
+└── README.md
+```
 
-Bash
+## API
+
+POST /api/shorten
+- Create a new short URL. Body: { "url": "https://example.com/..." }
+
+GET /api/urls
+- List stored URLs and basic analytics
+
+GET /api/analytics/:shortId
+- Get analytics for a specific short ID
+
+GET /:shortId
+- Redirects to the original URL and records the visit
+
+Example (create a short URL):
 
 curl -X POST http://localhost:3000/api/shorten \
   -H "Content-Type: application/json" \
-  -d '{"url": "https://www.example.com/very/long/url"}'
-Response:
+  -d '{"url":"https://www.example.com/very/long/url"}'
 
-JSON
+Response example:
 
-{
-  "id": "abc12345"
-}
-Get All URLs:
+```json
+{ "id": "abc12345", "shortUrl": "http://localhost:3000/abc12345", "originalUrl": "https://www.example.com/..." }
+```
 
-Bash
+## Environment
 
-curl http://localhost:3000/api/urls
-Get Analytics:
+- MONGODB_URI - MongoDB connection string (required)
+- PORT - server port (optional, default 3000)
 
-Bash
+## Contributing
 
-curl http://localhost:3000/api/analytics/abc12345
-📊 Usage
-Creating Short URLs
-Enter your long URL in the input field
-Click "Shorten URL"
-Copy and share your new short link
-Viewing Analytics
-Scroll down to see all your shortened URLs
-View total visit counts for each URL
-Click "Show Visit History" to see detailed timestamps
-Use the refresh button to update analytics
-Sharing Links
-Use the copy button (📋) to quickly copy URLs
-Share anywhere - social media, emails, messages
-Track engagement through the analytics dashboard
-🚀 Deployment
-Deploy to Render
-Create account on Render
-Create new Web Service
-Connect your GitHub repository
-Add environment variables:
-MONGODB_URI
-PORT (optional, Render sets automatically)
-Deploy!
-Deploy to Railway
-Bash
+Contributions are welcome. Please open issues or submit PRs for improvements.
 
-# Install Railway CLI
-npm i -g @railway/cli
+## License
 
-# Login
-railway login
+This project is licensed under the MIT License.
 
-# Initialize project
-railway init
+---
 
-# Add environment variables
-railway variables set MONGODB_URI=your_mongodb_uri
-
-# Deploy
-railway up
-Deploy to Heroku
-Bash
-
-# Login to Heroku
-heroku login
-
-# Create app
-heroku create short-id-app
-
-# Add MongoDB
-heroku addons:create mongolab:sandbox
-
-# Set environment variables
-heroku config:set MONGODB_URI=your_mongodb_uri
-
-# Deploy
-git push heroku main
-
-# Open app
-heroku open
-🔐 Environment Variables
-Variable	Description	Required
-MONGODB_URI	MongoDB connection string	Yes
-PORT	Server port (default: 3000)	No
-🧪 Testing
-Bash
-
-# Run tests (if implemented)
-npm test
-
-# Check code formatting
-npm run lint
-🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-Fork the project
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-📝 To-Do
- Add user authentication
- Implement custom short IDs
- Add QR code generation
- Export analytics as CSV
- Add link expiration dates
- Implement rate limiting
- Add dark mode
-🐛 Known Issues
-None at the moment. Please report any bugs in the Issues section.
-
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-🙏 Acknowledgments
-Built with Express.js
-Database powered by MongoDB
-Unique IDs generated using nanoid
-Inspired by bit.ly and TinyURL
-📧 Contact
-Hasnain Tanoli - @hasnain-tanoli
-
-Project Link: https://github.com/hasnain-tanoli/short-id
-
-⭐ Star this repo if you find it helpful!
-
-Made with ❤️ by Hasnain Tanoli
+Made with ❤️ by Hasnain Tanoli — https://github.com/hasnain-tanoli/short-id
