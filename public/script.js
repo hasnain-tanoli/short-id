@@ -1,6 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
-  loadAllURLs();
+  checkAuthStatus();
 });
+
+function checkAuthStatus() {
+  const user = localStorage.getItem("user");
+  const loginBtn = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const userInfo = document.getElementById("userInfo");
+  const analyticsSection = document.getElementById("analyticsSection");
+  const loginPrompt = document.getElementById("loginPrompt");
+
+  if (user) {
+    const userData = JSON.parse(user);
+    loginBtn.classList.add("hidden");
+    signupBtn.classList.add("hidden");
+    logoutBtn.classList.remove("hidden");
+    userInfo.classList.remove("hidden");
+    userInfo.textContent = `Welcome, ${userData.name}`;
+
+    analyticsSection.classList.remove("hidden");
+    loginPrompt.classList.add("hidden");
+
+    loadAllURLs();
+  } else {
+    loginBtn.classList.remove("hidden");
+    signupBtn.classList.remove("hidden");
+    logoutBtn.classList.add("hidden");
+    userInfo.classList.add("hidden");
+
+    analyticsSection.classList.add("hidden");
+    loginPrompt.classList.remove("hidden");
+  }
+}
+
+function logout() {
+  localStorage.removeItem("user");
+  window.location.reload();
+}
 
 async function shortenURL() {
   const urlInput = document.getElementById("urlInput");
@@ -50,7 +87,10 @@ async function shortenURL() {
 
     urlInput.value = "";
 
-    loadAllURLs();
+    const user = localStorage.getItem("user");
+    if (user) {
+      loadAllURLs();
+    }
   } catch (error) {
     showError(error.message);
     loadingDiv.classList.add("hidden");
@@ -63,6 +103,11 @@ async function loadAllURLs() {
   const analyticsLoading = document.getElementById("analyticsLoading");
   const analyticsContainer = document.getElementById("analyticsContainer");
   const noData = document.getElementById("noData");
+
+  const user = localStorage.getItem("user");
+  if (!user) {
+    return;
+  }
 
   analyticsLoading.classList.remove("hidden");
   analyticsContainer.classList.add("hidden");

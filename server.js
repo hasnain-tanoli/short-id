@@ -3,6 +3,7 @@ const path = require("path");
 require("dotenv").config();
 const connectDB = require("./connection");
 const urlRoutes = require("./routes/url");
+const userRoutes = require("./routes/user");
 const URL = require("./models/url");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api", urlRoutes);
+app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));

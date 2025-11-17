@@ -7,6 +7,32 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">🔗 URL Shortener</div>
+        <div class="nav-links">
+          <span id="userInfo" class="user-info hidden"></span>
+          <button
+            id="loginBtn"
+            class="nav-btn"
+            onclick="window.location.href='/login.html'"
+          >
+            Login
+          </button>
+          <button
+            id="signupBtn"
+            class="nav-btn primary"
+            onclick="window.location.href='/signup.html'"
+          >
+            Sign Up
+          </button>
+          <button id="logoutBtn" class="nav-btn hidden" onclick="logout()">
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
       <div class="card">
         <h1>🔗 URL Shortener</h1>
@@ -43,8 +69,7 @@
         </div>
       </div>
 
-      <!-- NEW: Analytics Section -->
-      <div class="card analytics-card">
+      <div id="analyticsSection" class="card analytics-card hidden">
         <div class="analytics-header">
           <h2>📊 URL Analytics</h2>
           <button onclick="loadAllURLs()" class="refresh-btn">
@@ -63,6 +88,28 @@
         </div>
 
         <div id="analyticsContainer" class="analytics-container hidden"></div>
+      </div>
+
+      <div id="loginPrompt" class="card login-prompt hidden">
+        <div class="prompt-content">
+          <span class="icon">🔐</span>
+          <h2>Want to track your URLs?</h2>
+          <p>Login or Sign up to access analytics and view your URL history!</p>
+          <div class="prompt-buttons">
+            <button
+              onclick="window.location.href='/login.html'"
+              class="prompt-btn"
+            >
+              Login
+            </button>
+            <button
+              onclick="window.location.href='/signup.html'"
+              class="prompt-btn primary"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="features">

@@ -8,15 +8,83 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  padding: 0;
+}
+
+.navbar {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.user-info {
+  color: white;
+  font-weight: 500;
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+}
+
+.nav-btn {
+  padding: 0.5rem 1.5rem;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  font-size: 14px;
+}
+
+.nav-btn:hover {
+  background: white;
+  color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn.primary {
+  background: white;
+  color: #667eea;
+}
+
+.nav-btn.primary:hover {
+  background: transparent;
+  color: white;
 }
 
 .container {
   max-width: 600px;
   width: 100%;
+  margin: 2rem auto;
+  padding: 20px;
 }
 
 .card {
@@ -80,6 +148,12 @@ button:hover {
 
 button:active {
   transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .result {
@@ -184,7 +258,7 @@ button:active {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .features {
@@ -421,7 +495,99 @@ button:active {
   font-style: italic;
 }
 
-@media (max-width: 600px) {
+.login-prompt {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.prompt-content {
+  padding: 20px;
+}
+
+.prompt-content .icon {
+  font-size: 4em;
+  margin-bottom: 20px;
+}
+
+.prompt-content h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.prompt-content p {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 1.1em;
+}
+
+.prompt-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.prompt-btn {
+  padding: 12px 30px;
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.prompt-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.prompt-btn.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.prompt-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .nav-brand {
+    font-size: 1.3rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .user-info {
+    margin-right: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding: 10px;
+    margin: 1rem auto;
+  }
+
   .card {
     padding: 25px;
   }
@@ -459,5 +625,36 @@ button:active {
   .url-meta {
     flex-direction: column;
     gap: 8px;
+  }
+
+  .prompt-buttons {
+    flex-direction: column;
+  }
+
+  .prompt-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-brand {
+    font-size: 1.1rem;
+  }
+
+  .nav-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .subtitle {
+    font-size: 0.95em;
+  }
+
+  .card {
+    padding: 20px;
   }
 }
