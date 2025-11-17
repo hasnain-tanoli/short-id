@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
+const { getUserId, setUserId } = require("../service/auth");
 
 async function handleUserSignup(req, res) {
   try {
@@ -55,6 +57,15 @@ async function handleUserLogin(req, res) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
+    const sessionId = uuidv4();
+    setUserId(sessionId, user);
+
+    res.cookie("sessionId", sessionId, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
     return res.json({
       message: "Login successful",
       user: { name: user.name, email: user.email },
@@ -65,4 +76,9 @@ async function handleUserLogin(req, res) {
   }
 }
 
-module.exports = { handleUserSignup, handleUserLogin };
+async function handleUserLogout(req, res) {
+  res.clearCookie("sessionId");
+  return res.json({ message: "Logged out successfully" });
+}
+
+module.exports = { handleUserSignup, handleUserLogin, handleUserLogout };

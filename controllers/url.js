@@ -14,6 +14,7 @@ async function generateShortURL(req, res) {
       shortId: shortID,
       redirectURL: body.url,
       visitHistory: [],
+      createdBy: req.user._id,
     });
 
     return res.json({ id: shortID });
@@ -47,7 +48,9 @@ async function fetchURL(req, res) {
 // Get all URLs with analytics
 async function getAllURLs(req, res) {
   try {
-    const urls = await URL.find({}).sort({ createdAt: -1 });
+    const urls = await URL.find({ createdBy: req.user._id }).sort({
+      createdAt: -1,
+    });
 
     const urlsWithAnalytics = urls.map((url) => ({
       shortId: url.shortId,

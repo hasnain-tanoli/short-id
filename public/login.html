@@ -135,6 +135,16 @@
       .signup-link a:hover {
         text-decoration: underline;
       }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 30px 20px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -159,10 +169,6 @@
     </div>
 
     <script>
-      if (localStorage.getItem("user")) {
-        window.location.href = "/";
-      }
-
       const form = document.getElementById("loginForm");
       const message = document.getElementById("message");
       const submitBtn = document.getElementById("submitBtn");
@@ -195,10 +201,11 @@
           const data = await response.json();
 
           if (response.ok) {
+            localStorage.setItem("authToken", data.token);
+
             message.className = "message success";
             message.textContent = data.message;
             message.style.display = "block";
-            localStorage.setItem("user", JSON.stringify(data.user));
             setTimeout(() => {
               window.location.href = "/";
             }, 1000);

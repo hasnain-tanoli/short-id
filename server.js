@@ -5,6 +5,8 @@ const connectDB = require("./connection");
 const urlRoutes = require("./routes/url");
 const userRoutes = require("./routes/user");
 const URL = require("./models/url");
+const cookieParser = require("cookie-parser");
+const { checkAuth } = require("./middlewares/auth");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,9 +15,10 @@ connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api", urlRoutes);
+app.use("/api", checkAuth, urlRoutes);
 app.use("/user", userRoutes);
 
 app.get("/", (req, res) => {
